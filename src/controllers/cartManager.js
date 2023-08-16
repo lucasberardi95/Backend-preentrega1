@@ -19,6 +19,7 @@ export class CartManager {
             return false
         } else {
             cart.id = CartManager.incrementId(carts)
+            cart.products = []
             carts.push(cart)
             await fs.writeFile(this.path, JSON.stringify(carts))
             return true
@@ -44,7 +45,7 @@ export class CartManager {
         if (!product) {
 			return false
 		} else if (cart) {
-			const existingProduct = cart.products.find(prod => prod.product === pid)
+			const existingProduct = cart.products.find(prod => prod.id === pid)
 			if(existingProduct){
                 existingProduct.quantity++
             } else{
